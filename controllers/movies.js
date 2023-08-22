@@ -75,5 +75,6 @@ module.exports.deleteMovie = (req, res, next) => {
           }
           next(err);
         });
-    });
+    })
+    .catch(next);
 };

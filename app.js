@@ -3,10 +3,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { celebrate, Joi } = require('celebrate');
 const { errors } = require('celebrate');
-const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const limiter = require('./middlewares/rateLimiter');
 const { createUser, login, logout } = require('./controllers/users');
 const { NotFoundError } = require('./errors/errors');
 const { handleOtherErrors } = require('./errors/handleOtherErrors');
@@ -21,11 +21,7 @@ app.use(cors({
   origin: '',
   credentials: true,
 }));
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: 'Превышено количество запросов.',
-});
+
 app.use(limiter);
 
 app.use(express.json());
