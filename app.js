@@ -6,7 +6,7 @@ const { errors } = require('celebrate');
 const helmet = require('helmet');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const limiter = require('./middlewares/rateLimiter');
+// const limiter = require('./middlewares/rateLimiter');
 const { createUser, login, logout } = require('./controllers/users');
 const { NotFoundError } = require('./errors/errors');
 const { handleOtherErrors } = require('./errors/handleOtherErrors');
@@ -18,11 +18,11 @@ const { PORT = 3000 } = process.env;
 
 app.use(helmet());
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:3001',
   credentials: true,
 }));
 
-app.use(limiter);
+// app.use(limiter);
 
 app.use(express.json());
 app.use(cookieParser());

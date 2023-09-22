@@ -29,7 +29,6 @@ module.exports = (req, res, next) => {
     payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'very-strong-key');
     req.user = payload;
   } catch (err) {
-    console.log(token);
     return next(new UnauthorizedError('Токен не прошел проверку'));
   }
   return next();

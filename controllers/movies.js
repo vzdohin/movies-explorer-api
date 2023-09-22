@@ -38,7 +38,7 @@ module.exports.createMovie = (req, res, next) => {
     owner: req.user.userId,
   })
     .then((movie) => {
-      console.log(movie);
+      // console.log(movie);
       res.status(STATUS_CODE_CREATED).send(movie);
     })
     .catch((err) => {
@@ -56,16 +56,16 @@ module.exports.getMovies = (req, res, next) => {
     });
 };
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findById(req.params.id)
+  Movie.findById(req.params.movieId)
     .then((movie) => {
-      console.log(req.params);
+      // console.log(req.params);
       if (movie === null) {
         return next(new NotFoundError('Карточка не найдена'));
       }
       if (movie.owner.toString() !== req.user.userId) {
         return next(new ForbiddenError('У Вас нет прав для удаления этой карточки'));
       }
-      Movie.findByIdAndRemove(req.params.id)
+      Movie.findByIdAndRemove(req.params.movieId)
         .then(() => {
           res.status(STATUS_CODE_OK).send({ message: 'Карточка удалена' });
         })

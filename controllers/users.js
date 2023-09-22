@@ -17,7 +17,6 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   User.findUserByCredentials(email, password)
     .then(({ _id: userId }) => {
-      console.log(userId);
       const token = jwt.sign({ userId }, NODE_ENV === 'production' ? JWT_SECRET : 'very-strong-key', { expiresIn: '7d' });
       res
         .cookie('jwt', token, {
@@ -61,7 +60,6 @@ module.exports.createUser = (req, res, next) => {
     });
 };
 module.exports.getUserById = (req, res, next) => {
-  console.log(req.user.userId);
   const { userId } = req.user;
   User.findById(userId)
     .orFail(new NotFoundError('Пользователь не найден'))
