@@ -18,7 +18,7 @@ const { PORT = 3000 } = process.env;
 
 app.use(helmet());
 app.use(cors({
-  origin: 'http://diplom.nomoredomainsicu.ru',
+  origin: 'https://diplom.nomoredomainsicu.ru',
   credentials: true,
 }));
 
