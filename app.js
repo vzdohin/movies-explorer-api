@@ -6,7 +6,7 @@ const { errors } = require('celebrate');
 const helmet = require('helmet');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-// const limiter = require('./middlewares/rateLimiter');
+const limiter = require('./middlewares/rateLimiter');
 const { createUser, login, logout } = require('./controllers/users');
 const { NotFoundError } = require('./errors/errors');
 const { handleOtherErrors } = require('./errors/handleOtherErrors');
@@ -22,7 +22,7 @@ app.use(cors({
   credentials: true,
 }));
 
-// app.use(limiter);
+app.use(limiter);
 
 app.use(express.json());
 app.use(cookieParser());
